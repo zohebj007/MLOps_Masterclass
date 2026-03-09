@@ -29,7 +29,7 @@ Create a script that stores your name in a variable and prints it.
 ~~~bash
 #!/bin/bash
 
-name="Zoheb"
+name="MLOps"
 
 echo "My name is $name"
 ~~~
