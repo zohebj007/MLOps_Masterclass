@@ -27,7 +27,7 @@ chmod +x script.sh
 ~~~bash
 #!/bin/bash
 
-name="Zoheb"
+name="mlops"
 
 echo "My name is $name"
 ~~~
@@ -131,7 +131,7 @@ done
 #!/bin/bash
 
 hello() {
-echo "Hello Zoheb"
+echo "Hello world"
 }
 
 hello
