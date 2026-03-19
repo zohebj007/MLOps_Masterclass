@@ -23,7 +23,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install boto3 sagemaker scikit-learn pandas
+          pip install -r requirements.txt
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -41,4 +41,4 @@ jobs:
           # For push events, PR_NUMBER and PR_STATUS are not applicable; set empty
           PR_NUMBER=""
           PR_STATUS=""
-          python sagemaker-actions-pipeline.py "$BRANCH_NAME" "$PR_NUMBER" "$PR_STATUS"
+          python MLOps/sagemaker-actions-pipeline.py "$BRANCH_NAME" "$PR_NUMBER" "$PR_STATUS"
