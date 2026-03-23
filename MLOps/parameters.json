@@ -2,7 +2,7 @@
     "bucket": "main-sagemaker-ml-healthcare",
     "prefix": "mlops",
     "region": "ap-south-1",
-    "role": "arn:aws:iam::329599621181:role/AmazonSageMaker-ExecutionRole-20260314T150057",
+    "role": "arn:aws:iam::329599621181:role/service-role/AmazonSageMaker-ExecutionRole-20260314T150057",
     "preprocessing_instance_type": "ml.m5.large",
     "training_instance_type": "ml.m5.large",
     "evaluation_instance_type": "ml.m5.large",
