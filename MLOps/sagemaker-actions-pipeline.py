@@ -292,8 +292,9 @@ def get_pipeline() -> str:
     # Final result handling
     if status == 'Succeeded':
         print("✅ Pipeline execution succeeded!")
-        # Optionally still return an identifier
-        identifier = f"{run_output_path}^{timestamp}^{execution.name}^{exec_arn}"
+        # Get the display name from the last describe response
+        display_name = response.get('PipelineExecutionDisplayName', exec_arn.split('/')[-1])
+        identifier = f"{run_output_path}^{timestamp}^{display_name}^{exec_arn}"
         print(identifier)
         return identifier
     else:
