@@ -71,13 +71,13 @@ def input_fn(request_body, content_type):
     else:
         raise ValueError("This model only supports text/csv input")
 
-# Define Prediction Function
-def predict_fn(test_df, model):
-    pred = model.predict(test_df)
-    return pred
+# # Define Prediction Function
+# def predict_fn(test_df, model):
+#     pred = model.predict(test_df)
+#     return pred
 
-# Define Output Function
-def output_fn(pred, content_type):
-    pred = ','.join([str(x) for x in pred])
-    logger.info(pred)
-    return pred
+# # Define Output Function
+# def output_fn(pred, content_type):
+#     pred = ','.join([str(x) for x in pred])
+#     logger.info(pred)
+#     return pred

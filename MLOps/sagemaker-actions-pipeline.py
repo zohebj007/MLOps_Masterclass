@@ -48,6 +48,7 @@ def get_pipeline() -> str:
     preprocessing_instance = params["preprocessing_instance_type"]
     training_instance = params["training_instance_type"]
     evaluation_instance = params["evaluation_instance_type"]
+    instance_count=params["instance_count"]
 
     # Model package group
     model_package_group = params["model_package_group_name"]
@@ -86,7 +87,7 @@ def get_pipeline() -> str:
         framework_version=sklearn_version,
         role=role,
         instance_type=preprocessing_instance,
-        instance_count=1,
+        instance_count=instance_count,
         base_job_name=f"{prefix}-preprocess",
         sagemaker_session=pipeline_session
     )
@@ -153,9 +154,9 @@ def get_pipeline() -> str:
 
     # ---------- Step 3 : Evaluation ----------
     image_uri = sagemaker.image_uris.retrieve(
-        framework="xgboost",
+        framework="sklearn",
         region=region,
-        version=xgboost_version,
+        version=sklearn_version,
         py_version=py_version
     )
 
@@ -163,7 +164,7 @@ def get_pipeline() -> str:
         image_uri=image_uri,
         command=["python3"],
         instance_type=evaluation_instance,
-        instance_count=1,
+        instance_count=instance_count,
         role=role,
         sagemaker_session=pipeline_session,
         base_job_name=f"{prefix}-evaluate"

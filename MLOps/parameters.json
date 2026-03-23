@@ -4,7 +4,7 @@
     "region": "ap-south-1",
     "role": "arn:aws:iam::account-id:role/role-name",
     "preprocessing_instance_type": "ml.m5.large",
-    "training_instance_type": "ml.m5.xlarge",
+    "training_instance_type": "ml.m5.large",
     "evaluation_instance_type": "ml.m5.large",
     "model_package_group_name": "diabetes",
     "input_data_default": "s3://main-sagemaker-ml-healthcare/mlops/diabetes.csv",
@@ -15,6 +15,7 @@
     "evaluation_output_uri": "s3://main-sagemaker-ml-healthcare/output/evaluation",
     "framework_version_sklearn": "1.2-1",
     "framework_version_xgboost": "1.0-1",
+    "instance_count": 1,
     "py_version": "py3",
     "hyperparameters": {
         "n_estimators": 50,

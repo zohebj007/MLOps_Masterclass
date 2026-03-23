@@ -7,10 +7,10 @@ from sklearn.metrics import accuracy_score, classification_report, confusion_mat
 from sklearn.preprocessing import StandardScaler
 import joblib
 import os
-#
+
 
 # --- CONFIG ---
-DATA_PATH = "data/diabetes.csv"   # path to CSV
+DATA_PATH = "Datasets/diabetes.csv"   # path to CSV
 MODEL_OUT = "models/model.pkl"
 SCALER_OUT = "models/scaler.pkl"
 os.makedirs("models", exist_ok=True)
