@@ -5,8 +5,9 @@ import os
 import sys
 import json
 import datetime
+import time               # added
+import boto3              # added
 import sagemaker
-import boto3
 from sagemaker import get_execution_role
 from sagemaker.workflow.pipeline import Pipeline
 from sagemaker.workflow.pipeline_context import PipelineSession
@@ -49,7 +50,7 @@ def get_pipeline() -> str:
     preprocessing_instance = params["preprocessing_instance_type"]
     training_instance = params["training_instance_type"]
     evaluation_instance = params["evaluation_instance_type"]
-    instance_count=params["instance_count"]
+    instance_count = params["instance_count"]
 
     # Model package group
     model_package_group = params["model_package_group_name"]
