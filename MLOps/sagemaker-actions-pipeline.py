@@ -270,14 +270,35 @@ def get_pipeline() -> str:
     pipeline.upsert(role_arn=role)
     execution = pipeline.start()
 
-    # ---------- Return unique identifier (S3 path + execution info) ----------
-    desc = execution.describe()
-    pipeline_arn = desc['PipelineExecutionArn']
-    pipeline_exec_id = desc['PipelineExecutionDisplayName']
-    identifier = f"{run_output_path}^{timestamp}^{pipeline_exec_id}^{pipeline_arn}"
-    print(identifier)
-    return identifier
+    # ========== NEW: WAIT FOR COMPLETION ==========
+    sagemaker_client = boto3.client('sagemaker')
+    exec_arn = execution.arn
 
+    print(f"Pipeline execution started: {exec_arn}")
+    print("Waiting for execution to finish...")
+
+    while True:
+        response = sagemaker_client.describe_pipeline_execution(
+            PipelineExecutionArn=exec_arn
+        )
+        status = response['PipelineExecutionStatus']
+        print(f"Current status: {status}")
+        if status not in ['Executing', 'Stopping']:
+            break
+        time.sleep(30)
+
+    # Final result handling
+    if status == 'Succeeded':
+        print("✅ Pipeline execution succeeded!")
+        # Optionally still return an identifier
+        identifier = f"{run_output_path}^{timestamp}^{execution.name}^{exec_arn}"
+        print(identifier)
+        return identifier
+    else:
+        print(f"❌ Pipeline execution failed with status: {status}")
+        if 'FailureReason' in response:
+            print(f"Reason: {response['FailureReason']}")
+        sys.exit(1)   # make GitHub Actions job fail
 
 if __name__ == "__main__":
     get_pipeline()
