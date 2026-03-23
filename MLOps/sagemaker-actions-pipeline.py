@@ -6,6 +6,7 @@ import sys
 import json
 import datetime
 import sagemaker
+import boto3
 from sagemaker import get_execution_role
 from sagemaker.workflow.pipeline import Pipeline
 from sagemaker.workflow.pipeline_context import PipelineSession
