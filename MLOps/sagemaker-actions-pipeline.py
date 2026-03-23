@@ -95,7 +95,7 @@ def get_pipeline() -> str:
     processing_step = ProcessingStep(
         name="Preprocessing",
         processor=sklearn_processor,
-        code="preprocess.py",   # your preprocessing script
+        code="MLOps/preprocess.py",   # your preprocessing script
         inputs=[
             ProcessingInput(
                 source=input_data_param,
@@ -129,7 +129,7 @@ def get_pipeline() -> str:
 
     # ---------- Step 2 : Training ----------
     estimator = SKLearn(
-        entry_point="train.py",
+        entry_point="MLOps/train.py",
         framework_version=sklearn_version,
         py_version=py_version,
         instance_type=training_instance,
@@ -179,7 +179,7 @@ def get_pipeline() -> str:
     evaluation_step = ProcessingStep(
         name="Evaluation",
         processor=evaluation_processor,
-        code="eval.py",   # your evaluation script
+        code="MLOps/eval.py",   # your evaluation script
         inputs=[
             ProcessingInput(
                 source=train_step.properties.ModelArtifacts.S3ModelArtifacts,
