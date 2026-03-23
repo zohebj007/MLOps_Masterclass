@@ -1,0 +1,44 @@
+name: Run SageMaker Pipeline
+
+on:
+  push:
+    branches:
+      - mlops
+      - 'feature-*'
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write   # if using OIDC
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}   # if using OIDC
+          aws-region: ${{ secrets.AWS_REGION }}
+          # Or use access keys:
+          # aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          # aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          # aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Run SageMaker pipeline
+        run: |
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          # For push events, PR_NUMBER and PR_STATUS are not applicable; set empty
+          PR_NUMBER=""
+          PR_STATUS=""
+          python MLOps/sagemaker-actions-pipeline.py "$BRANCH_NAME" "$PR_NUMBER" "$PR_STATUS"
