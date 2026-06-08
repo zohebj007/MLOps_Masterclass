@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+mlruns
+mlflow.db
+activate-mlops-env.sh
 # Distribution / packaging
 .Python
 build/
@@ -126,6 +129,7 @@ ipython_config.py
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
 __pypackages__/
+github_actions*
 
 # Celery stuff
 celerybeat-schedule
